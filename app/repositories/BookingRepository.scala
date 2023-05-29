@@ -34,20 +34,12 @@ class BookingRepository @Inject()(implicit ec: ExecutionContext) {
     tables.put(tableId, reserved)
   }
 
-  def isTableReserved(tableId: Int) = {
-    tables(tableId)
-  }
-
   def getNextFreeTableId = {
     tables.filter(!_._2).head._1
   }
 
   def getRemainingTables = {
     tables.count(t => !t._2)
-  }
-
-  def getBookedTables = {
-    tables.count(t => t._2)
   }
 
   def getAllBookings = {
