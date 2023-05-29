@@ -1,12 +1,10 @@
 package repositories
 
-import com.google.inject.Inject
 import models.Booking
 
 import scala.collection.mutable.{Map => mutableMap, ListBuffer => mutableList}
-import scala.concurrent.ExecutionContext
 
-class BookingRepository @Inject()(implicit ec: ExecutionContext) {
+class BookingRepository {
 
   private val tables: mutableMap[Int, Boolean] = mutableMap()
   private val bookings: mutableList[Booking] = mutableList()
