@@ -16,11 +16,15 @@ class BookingRepository @Inject()(implicit ec: ExecutionContext) {
   def clear() = {
     tables.clear()
     bookings.clear()
-    isInitailize = false
+    isInitailize = true
     bookingId = 1
   }
 
   def isInitialize = isInitailize
+
+  def getAllTables = {
+    tables
+  }
 
   def insertTable(tableId: Int) = {
     tables += tableId -> false
@@ -46,6 +50,10 @@ class BookingRepository @Inject()(implicit ec: ExecutionContext) {
     tables.count(t => t._2)
   }
 
+  def getAllBookings = {
+    bookings
+  }
+
   def insertBooking(tables: List[Int]) = {
     val currentBookingId = bookingId
     bookings += Booking(bookingId, tables)
@@ -58,10 +66,10 @@ class BookingRepository @Inject()(implicit ec: ExecutionContext) {
   }
 
   def getBooking(bookingId: Int) = {
-    bookings(bookingId)
+    bookings.filter(b => b.id == bookingId).head
   }
 
   def hasBooking(bookingId: Int) = {
-    bookings.contains(bookingId)
+    bookings.exists(b => b.id == bookingId)
   }
 }

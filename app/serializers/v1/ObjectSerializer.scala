@@ -1,6 +1,6 @@
 package serializers.v1
 
-import models.{BookingResult, CancelBookingResult, InitResult}
+import models.{Booking, BookingResult, CancelBookingResult, InitResult}
 import play.api.libs.json.{JsObject, Json, Writes}
 
 object ObjectSerializer {
@@ -28,6 +28,13 @@ object ObjectSerializer {
     def writes(result: InitResult): JsObject = Json.obj(
       "success" -> result.success,
       "message" -> result.message,
+    )
+  }
+
+  implicit val bookingJsonWrites = new Writes[Booking] {
+    def writes(result: Booking): JsObject = Json.obj(
+      "id" -> result.id,
+      "tables" -> result.tables,
     )
   }
 

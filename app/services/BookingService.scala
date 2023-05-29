@@ -10,12 +10,16 @@ class BookingService @Inject() (bookingRepository: BookingRepository)(implicit e
 
   final val NUMBER_OF_SEATS = 4
 
+  def getAllTables = bookingRepository.getAllTables
+
+  def getAllBooking = bookingRepository.getAllBookings
+
   def initializeRestaurant(numberOfTables: Int) = {
     if (bookingRepository.isInitialize) {
       InitResult(success = false, message = "Restaurant is already initialized.")
     } else {
       bookingRepository.clear()
-      for (i <- 0 to numberOfTables) {
+      for (i <- 0 to numberOfTables - 1) {
         bookingRepository.insertTable(i)
       }
       InitResult(success = true)
@@ -27,7 +31,7 @@ class BookingService @Inject() (bookingRepository: BookingRepository)(implicit e
       val remainingTables = bookingRepository.getRemainingTables
       val neededTables = if (numberOfPeople % NUMBER_OF_SEATS == 0) numberOfPeople / NUMBER_OF_SEATS else numberOfPeople / NUMBER_OF_SEATS + 1
       if (neededTables <= remainingTables) {
-        val nextTableIds = (0 to neededTables).map(i => {
+        val nextTableIds = (0 to neededTables - 1).map(i => {
           val nextTableId = bookingRepository.getNextFreeTableId
           bookingRepository.updateTable(nextTableId, true)
           nextTableId
@@ -48,7 +52,7 @@ class BookingService @Inject() (bookingRepository: BookingRepository)(implicit e
       if (bookingRepository.hasBooking(bookingId)) {
         val booking = bookingRepository.getBooking(bookingId)
         bookingRepository.deleteBooking(booking)
-        for (i <- 0 to booking.tables.length) {
+        for (i <- 0 to booking.tables.length - 1) {
           bookingRepository.updateTable(booking.tables(i), false)
         }
         val numberOfRemainingTables = bookingRepository.getRemainingTables

@@ -45,10 +45,17 @@ class BookingController @Inject()(bookingService: BookingService, val controller
   def cancelBooking() = Action(parse.json) { implicit request =>
     request.body.validate[CancelBookingPayload] match {
       case JsSuccess(request, _) => {
-        val result = bookingService.bookTables(request.booking_id)
+        val result = bookingService.cancelBooking(request.booking_id)
         Ok(Json.toJson(result))
       }
-      case e: JsError => BadRequest
+      case e: JsError =>
+        BadRequest
     }
+  }
+
+  def getStatus = Action {  implicit request: Request[AnyContent] =>
+    val allBookings = bookingService.getAllBooking
+    val allTables = bookingService.getAllTables
+    Ok(Json.obj("tables" -> allTables, "bookings" -> allBookings))
   }
 }
