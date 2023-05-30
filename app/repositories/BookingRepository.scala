@@ -24,11 +24,11 @@ class BookingRepository {
     tables
   }
 
-  def insertTable(tableId: Int) = {
+  def insertTable(tableId: Int): Unit = {
     tables += tableId -> false
   }
 
-  def updateTable(tableId: Int, reserved: Boolean) = {
+  def updateTable(tableId: Int, reserved: Boolean): Unit = {
     tables.put(tableId, reserved)
   }
 
@@ -44,14 +44,14 @@ class BookingRepository {
     bookings
   }
 
-  def insertBooking(tables: List[Int]) = {
+  def insertBooking(tables: List[Int]): Int = {
     val currentBookingId = bookingId
     bookings += Booking(bookingId, tables)
     bookingId += 1
     currentBookingId
   }
 
-  def deleteBooking(booking: Booking) = {
+  def deleteBooking(booking: Booking): Unit = {
     bookings -= booking
   }
 

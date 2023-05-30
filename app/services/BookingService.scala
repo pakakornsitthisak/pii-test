@@ -4,11 +4,9 @@ import com.google.inject.Inject
 import models.{BookingResult, CancelBookingResult, InitResult}
 import repositories.BookingRepository
 
-import scala.concurrent.ExecutionContext
+class BookingService @Inject() (bookingRepository: BookingRepository) {
 
-class BookingService @Inject() (bookingRepository: BookingRepository)(implicit ec: ExecutionContext) {
-
-  final val NUMBER_OF_SEATS = 4
+  private final val NUMBER_OF_SEATS = 4
 
   def getAllTables = bookingRepository.getAllTables
 
