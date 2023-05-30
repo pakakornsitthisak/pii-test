@@ -1,5 +1,6 @@
 # Prerequisite
 - Install SBT
+- Add JRE
 
 ## To run play server
 ```
