@@ -1,5 +1,1 @@
-GET     /                           controllers.v1.BookingController.index()
-POST    /initRestaurant             controllers.v1.BookingController.initRestaurant()
-POST    /reserveTables              controllers.v1.BookingController.reserveTables()
-POST    /cancelBooking              controllers.v1.BookingController.cancelBooking()
-GET     /getStatus                  controllers.v1.BookingController.getStatus()
+GET     /                           controllers.v1.UserController.index()
