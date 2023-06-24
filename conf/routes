@@ -1,1 +1,6 @@
-GET     /                           controllers.v1.UserController.index()
+GET      /users              controllers.v1.UserController.getUsers
+POST     /users              controllers.v1.UserController.createUser
+GET      /users/:id          controllers.v1.UserController.getUserById(id: java.util.UUID)
+PUT      /users/:id          controllers.v1.UserController.updateUserById(id: java.util.UUID)
+DELETE   /users/:id          controllers.v1.UserController.deleteUserById(id: java.util.UUID)
+
