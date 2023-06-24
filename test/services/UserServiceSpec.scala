@@ -12,13 +12,12 @@ import java.util.UUID
 import scala.concurrent.{ExecutionContext, Future}
 
 class UserServiceSpec extends PlaySpec with MockitoSugar {
-
+  implicit val executionContext = ExecutionContext.Implicits.global
+  val mockDatabase = mock[Database]
+  val mockUserRepository = mock[UserRepositoryImpl]
+  val userService = new UserService(mockDatabase, executionContext, mockUserRepository)
   "getUsers" should {
     "return all users from repo" in {
-      implicit val executionContext = ExecutionContext.Implicits.global
-      val mockDatabase = mock[Database]
-      val mockUserRepository = mock[UserRepositoryImpl]
-      val userService = new UserService(mockDatabase, executionContext, mockUserRepository)
       val mockUser = User(id = UUID.randomUUID(), name = "", email = "")
       when(mockUserRepository.getUsers).thenReturn(Future(List(mockUser)))
       whenReady(userService.getUsers()) {
@@ -29,10 +28,6 @@ class UserServiceSpec extends PlaySpec with MockitoSugar {
 
   "getUsersByPartialName" should {
     "return all users matching name" in {
-      implicit val executionContext = ExecutionContext.Implicits.global
-      val mockDatabase = mock[Database]
-      val mockUserRepository = mock[UserRepositoryImpl]
-      val userService = new UserService(mockDatabase, executionContext, mockUserRepository)
       val mockUser = User(id = UUID.randomUUID(), name = "name", email = "")
       when(mockUserRepository.getUsersByPartialName("name")).thenReturn(Future(List(mockUser)))
       whenReady(userService.getUsersByPartialName("name")) {
@@ -43,10 +38,6 @@ class UserServiceSpec extends PlaySpec with MockitoSugar {
 
   "getUserById" should {
     "return user by id" in {
-      implicit val executionContext = ExecutionContext.Implicits.global
-      val mockDatabase = mock[Database]
-      val mockUserRepository = mock[UserRepositoryImpl]
-      val userService = new UserService(mockDatabase, executionContext, mockUserRepository)
       val mockId = UUID.randomUUID()
       val mockUser = User(id = mockId, name = "", email = "")
       when(mockUserRepository.getUserById(mockId)).thenReturn(Future(Some(mockUser)))
@@ -58,10 +49,6 @@ class UserServiceSpec extends PlaySpec with MockitoSugar {
 
   "createUser" should {
     "return create user" in {
-      implicit val executionContext = ExecutionContext.Implicits.global
-      val mockDatabase = mock[Database]
-      val mockUserRepository = mock[UserRepositoryImpl]
-      val userService = new UserService(mockDatabase, executionContext, mockUserRepository)
       val mockId = UUID.randomUUID()
       val mockUser = User(id = mockId, name = "", email = "")
       when(mockUserRepository.addUser(mockUser)).thenReturn(Future(Right(mockUser)))
@@ -73,10 +60,6 @@ class UserServiceSpec extends PlaySpec with MockitoSugar {
 
   "createUser" should {
     "return update user" in {
-      implicit val executionContext = ExecutionContext.Implicits.global
-      val mockDatabase = mock[Database]
-      val mockUserRepository = mock[UserRepositoryImpl]
-      val userService = new UserService(mockDatabase, executionContext, mockUserRepository)
       val mockId = UUID.randomUUID()
       val mockUser = User(id = mockId, name = "", email = "")
       when(mockUserRepository.updateUser(mockId, mockUser)).thenReturn(Future(1))
@@ -88,10 +71,6 @@ class UserServiceSpec extends PlaySpec with MockitoSugar {
 
   "deleteUserById" should {
     "return delete user" in {
-      implicit val executionContext = ExecutionContext.Implicits.global
-      val mockDatabase = mock[Database]
-      val mockUserRepository = mock[UserRepositoryImpl]
-      val userService = new UserService(mockDatabase, executionContext, mockUserRepository)
       val mockId = UUID.randomUUID()
       when(mockUserRepository.deleteUserById(mockId)).thenReturn(Future(1))
       whenReady(userService.deleteUserById(mockId)) {

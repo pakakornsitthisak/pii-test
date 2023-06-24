@@ -22,7 +22,6 @@ class UserController @Inject()(val controllerComponents: ControllerComponents,
   def getUsers(): Action[AnyContent] = Action.async { implicit request =>
     authService.withUser(_ => {
       userService.getUsers().map { users => {
-        print(users)
         Ok(Json.toJson(users))
       }}
     })
