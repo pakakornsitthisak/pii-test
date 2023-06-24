@@ -7,6 +7,7 @@ import java.util.UUID
 import scala.concurrent.Future
 trait UserRepository {
   def getUsers(): Future[List[User]]
+  def getUsersByPartialName(name: String): Future[List[User]]
   def getUserById(id: UUID): Future[Option[User]]
   def addUser(user: User): Future[Either[APIError, User]]
   def updateUser(id: UUID, user: User): Future[Int]

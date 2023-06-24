@@ -25,6 +25,14 @@ class UserRepositoryImpl @Inject()(db: Database,
     }(databaseExecutionContext)
   }
 
+  override def getUsersByPartialName(name: String): Future[List[User]] = {
+    Future {
+      db.withConnection { implicit conn =>
+        userRepositoryDao.getByPartialName(name)
+      }
+    }(databaseExecutionContext)
+  }
+
   override def getUserById(id: UUID): Future[Option[User]] = {
     Future {
       db.withConnection { implicit conn =>

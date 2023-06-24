@@ -1,4 +1,5 @@
 GET      /users              controllers.v1.UserController.getUsers
+GET      /users/search       controllers.v1.UserController.getUsersByPartialName
 POST     /users              controllers.v1.UserController.createUser
 GET      /users/:id          controllers.v1.UserController.getUserById(id: java.util.UUID)
 PUT      /users/:id          controllers.v1.UserController.updateUserById(id: java.util.UUID)

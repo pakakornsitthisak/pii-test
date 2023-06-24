@@ -15,6 +15,10 @@ class UserService @Inject()(db: Database,
     userRepository.getUsers()
   }
 
+  def getUsersByPartialName(name: String): Future[List[User]] = {
+    userRepository.getUsersByPartialName(name)
+  }
+
   def getUserById(id: UUID): Future[Option[User]] = {
     userRepository.getUserById(id)
   }

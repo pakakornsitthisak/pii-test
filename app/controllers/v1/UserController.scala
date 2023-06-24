@@ -24,6 +24,13 @@ class UserController @Inject()(val controllerComponents: ControllerComponents,
     }
   }
 
+  def getUsersByPartialName(): Action[AnyContent] = Action.async { implicit request =>
+    val param = request.queryString.map { case (k,v) => k -> v.mkString }
+    userService.getUsersByPartialName(param.getOrElse("name","")).map { users =>
+      Ok(Json.toJson(users))
+    }
+  }
+
   def getUserById(id: UUID): Action[AnyContent] = Action.async { implicit request =>
     userService.getUserById(id).map {
       case Some(user) => Ok(Json.toJson(user))

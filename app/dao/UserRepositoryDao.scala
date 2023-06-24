@@ -17,6 +17,10 @@ class UserRepositoryDao @Inject()(db: Database) extends Logging {
     SQL("SELECT * FROM users").as(parser.*)
   }
 
+  def getByPartialName(name: String)(implicit conn: Connection): List[User] = {
+    SQL(s"""SELECT * FROM users WHERE name LIKE '%${name}%'""").as(parser.*)
+  }
+
   def getBy(id: UUID)(implicit conn: Connection): Option[User] = {
     SQL("SELECT id, name, email FROM users WHERE id = {id}::uuid")
       .on("id" -> id)
