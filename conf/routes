@@ -5,3 +5,4 @@ GET      /users/:id          controllers.v1.UserController.getUserById(id: java.
 PUT      /users/:id          controllers.v1.UserController.updateUserById(id: java.util.UUID)
 DELETE   /users/:id          controllers.v1.UserController.deleteUserById(id: java.util.UUID)
 
+POST     /login              controllers.v1.AuthController.login
