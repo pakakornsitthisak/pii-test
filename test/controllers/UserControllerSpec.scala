@@ -17,7 +17,7 @@ import services.{AuthService, UserService}
 import java.util.UUID
 import scala.concurrent.{ExecutionContext, Future}
 
-class UserControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting with MockitoSugar {
+class UserControllerSpec extends PlaySpec with MockitoSugar {
   implicit val executionContext = ExecutionContext.Implicits.global
   val mockAuthService = new AuthService(stubControllerComponents())
   val mockUserService = mock[UserService]
