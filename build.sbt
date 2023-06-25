@@ -14,5 +14,5 @@ libraryDependencies ++= Seq(
   jdbc,
   "org.postgresql" % "postgresql" % "42.2.17",
   "org.playframework.anorm" %% "anorm" % "2.6.7",
-  "org.flywaydb" %% "flyway-play" % "6.0.0"
+  "org.flywaydb" %% "flyway-play" % "6.0.0",
 )
